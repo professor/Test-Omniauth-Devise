@@ -1,5 +1,15 @@
 source 'http://rubygems.org'
 
+
+#Added gems
+gem 'thin'
+gem 'omniauth', '0.3.0.rc3'
+gem 'devise'
+
+
+
+
+
 gem 'rails', '3.0.9'
 
 # Bundle edge Rails instead:
