@@ -3,10 +3,12 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.string :name
       t.string :email
-
+      t.rememberable
+      t.trackable
       t.timestamps
     end
   end
+
 
   def self.down
     drop_table :users

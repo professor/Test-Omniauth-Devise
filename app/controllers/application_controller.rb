@@ -5,10 +5,6 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
 
   private
-    def current_user
-      @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
-    end
-
     def user_signed_in?
       return 1 if current_user
     end
@@ -18,8 +14,14 @@ class ApplicationController < ActionController::Base
         flash[:error] = 'You need to sign in before accessing this page!'
 
         session[:return_to] = request.fullpath
-        redirect_to "/auth/google_apps"
+        redirect_to "/users/auth/google_apps"
       end
+    end
+
+     def after_sign_in_path_for(resource)
+        session_return_to = session[:return_to]
+        session[:return_to] = nil
+        stored_location_for(resource) || session_return_to || root_path
     end
 
 end

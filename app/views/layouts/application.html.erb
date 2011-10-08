@@ -13,26 +13,21 @@
         <nav id="nav_user">
             <ul>
                 <span><%= current_user.email %></span>
-                <li><%= link_to "Settings", services_path %>
-                <li><%= link_to "Sign out", signout_services_path %></li>
+                <li><%= link_to "Sign out", logout_path %></li>
             </ul>
         </nav>
     <% else %>
         <nav id="nav_user">
             <ul>
-                <span>Sign in with:</span>
-                <li><%= link_to "Google Apps", "/auth/google_apps" %></li>
-<!--                <li><%= link_to "Google", "/auth/google" %></li>
-                <li><%= link_to "Yahoo", "/auth/yahoo" %>
-                <li><%= link_to "MyOpenID", "/auth/myopenid" %>
-                <li><%= link_to "Other", signin_services_path %>
--->
+              <span>Sign in with Devise:</span>
+              <li><%= link_to "Google Apps", user_omniauth_authorize_path(:google_apps) %></li>
+<!--              <li><%# link_to "Git Hub", user_omniauth_authorize_path(:github) %></li> -->
             </ul>
         </nav>
     <% end %>
 </section>
 
-	<section id="flash">
+	<section id="flash">Flash:
 		<% flash.each do |key, value| %>
 			<div class="flash <%= key %> round"><%= value %></div>
 		<% end %>

@@ -1,19 +1,14 @@
 TestOmniDevise::Application.routes.draw do
-  match "/signin" => "services#signin"
-  match "/signout" => "services#signout"
 
-  match '/auth/:service/callback' => 'services#create'
-  match '/auth/failure' => 'services#failure'
-
-  resources :services, :only => [:index, :create, :destroy] do
-    collection do
-      get 'signin'
-      get 'signout'
-      get 'signup'
-      post 'newaccount'
-      get 'failure'
-    end
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
+    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+    get 'logout' => 'devise/sessions#destroy'
   end
+
+
+
+
+
 
   # used for the demo application only
   resources :users, :only => [:index] do
