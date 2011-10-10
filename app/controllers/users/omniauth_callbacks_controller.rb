@@ -3,7 +3,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_apps
     return_to = session[:return_to] #but session is nil!
 
-
     @user = User.find_for_google_apps_oauth(env["omniauth.auth"], current_user)
 
     if @user.persisted?

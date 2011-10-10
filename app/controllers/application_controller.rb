@@ -11,17 +11,18 @@ class ApplicationController < ActionController::Base
 
     def authenticate_user!
       if !current_user
-        flash[:error] = 'You need to sign in before accessing this page!'
-
-        session[:return_to] = request.fullpath
-        redirect_to "/users/auth/google_apps"
+        # This should work, but session is lost. See https://github.com/plataformatec/devise/issues/1357
+        # session[:return_to] = request.fullpath
+        redirect_to user_omniauth_authorize_path(:google_apps, :origin => request.fullpath)
       end
     end
 
      def after_sign_in_path_for(resource)
-        session_return_to = session[:return_to]
-        session[:return_to] = nil
-        stored_location_for(resource) || session_return_to || root_path
+        # This should work, but session is lost. See https://github.com/plataformatec/devise/issues/1357
+        # return_to = session[:return_to]
+        # session[:return_to] = nil
+        return_to = request.env['omniauth.origin']
+        stored_location_for(resource) || return_to || root_path
     end
 
 end

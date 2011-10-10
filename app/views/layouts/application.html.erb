@@ -13,7 +13,8 @@
         <nav id="nav_user">
             <ul>
                 <span><%= current_user.email %></span>
-                <li><%= link_to "Sign out", logout_path %></li>
+                <li><%# link_to "Sign out", logout_path %></li>
+                <li><%= link_to "Sign out", destroy_user_session_path %></li>
             </ul>
         </nav>
     <% else %>
